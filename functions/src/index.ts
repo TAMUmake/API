@@ -1,20 +1,17 @@
-import * as express from "express";
-import * as admin from "firebase-admin";
-import * as functions from "firebase-functions";
-
-import * as usersApi from "./usersApi/users";
-import * as infoApi from "./infoApi/info";
+import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
 
 admin.initializeApp(functions.config().firebase);
 
-const userApp = express();
-const infoApp = express();
+/**
+ * User API Endpoints:
+ * - 
+ */
+export * from './users';
 
-userApp.disable('x-powered-by');
-userApp.use('/', usersApi.userRouter);
+/**
+ * Miscellaneous API Endpoints:
+ * - getStats - Returns useful statistical information about the registration.
+ */
+export * from './misc';
 
-infoApp.disable('x-powered-by');
-infoApp.use('/', infoApi.infoRouter);
-
-exports.usersApi = functions.https.onRequest(userApp);
-exports.infoApi = functions.https.onRequest(infoApp);
