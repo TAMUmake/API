@@ -1,6 +1,6 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-import { MiscRoutes, Settings } from './settings';
+import { MiscSettings, Settings } from './settings';
 
 const cors = require('cors')({
     origin: true
@@ -9,7 +9,7 @@ const cors = require('cors')({
 export const getStats = functions.https.onRequest((req, res) => {
     cors(req, res, function () {
 
-        if (MiscRoutes.getStats) {
+        if (MiscSettings.getStats) {
             return admin.database().ref('/stats').once('value', (snapshot) => {
                 res.send(snapshot.val());
             })

@@ -1,1 +1,4 @@
 functions/node_modules
+website/node_modules
+functions/**.js
+functions/**.js.map
