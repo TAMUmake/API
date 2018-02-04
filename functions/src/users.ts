@@ -47,11 +47,11 @@ export const createUser = functions.https.onRequest((req, res) => {
                             if (UserSettings.updateUserCount) {
                                 const countRef = admin.database().ref('/stats').child('users');
                                 return countRef.transaction(function (current) {
-                                    res.end();
+                                    res.status(200).send('Successfully created user and updated statistics.');
                                     return (current || 0) + 1;
                                 })
                             }
-                            res.end();
+                            res.status(200).send('Successfully created user.');
                             return null;
                         })
                     }
@@ -75,28 +75,47 @@ export const registerUser = functions.https.onRequest((req, res) => {
     cors(req, res, function () {
 
         const body = req.body;
+        const uid = body.uid;
+        body.uid = null;
         body.applied = true;
         body.timestamp = admin.database.ServerValue.TIMESTAMP
-        if (body.uid) {
-            return admin.database().ref('users/' + body.uid).child('applied').once('value', (snapshot) => {
+        if (uid) {
+            return admin.database().ref('users/' + uid).child('applied').once('value', (snapshot) => {
 
-                return admin.database().ref('users/' + body.uid).update(body).then((value) => {
+                return admin.database().ref('users/' + uid).update(body).then((value) => {
                     if (!snapshot.val()) {
                         const countRef = admin.database().ref('/stats').child('applied');
                         return countRef.transaction(function (current) {
-                            res.end();
+                            res.status(200).send('Successfully registered and updated statistics.');
                             return (current || 0) + 1;
                         })
                     }
-                    res.end();
+                    res.status(200).send('Successfully registered.');
                     return null;
                 })
             })
         } else {
-            res.status(401).send('Unauthorized');
+            res.status(401).send(Settings.UNAUTHORIZED_MESSAGE);
             return null;
         }
     })
 })
 
+export const getUser = functions.https.onRequest((req, res) => {
+    cors(req, res, function() {
+        const uid = req.query.uid;
+        if (uid) {
+            return admin.database().ref('users/' + uid).once('value', (snapshot) => {
+                if (snapshot.exists()) {
+                    res.status(200).send(snapshot.val());
+                } else {
+                    res.status(400).send(Settings.INVALID_MESSAGE);
+                }
+            })
+        } else {
+            res.status(400).send(Settings.INVALID_MESSAGE);
+        }
+        return null;
+    })
+})
 
