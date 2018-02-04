@@ -1,0 +1,153 @@
+<ng-template #received let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Successfully registered</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    </div>
+
+    <div class="modal-body">
+      <div>
+        <label style="font-size: 18px">We have successfully registered your account. Please login to judge.</label>
+      </div>
+      <div class="register-logos">
+        <a href="https://twitter.com/tamumake" target="_blank"><img src="/assets/img/twitter-logo.png"></a>
+      </div>
+      <div class="register-logos facebook">
+        <a href="https://www.facebook.com/tamumake" target="_blank"><img src="/assets/img/facebook-logo.png"></a>
+      </div>
+      <div class="register-logos">
+        <a href="https://www.instagram.com/tamumake/" target="_blank"><img src="/assets/img/instagram-logo.png"></a>
+      </div>
+      <div class="register-logos">
+        <a href="https://github.com/TAMU-IEEE" target="_blank"><img src="/assets/img/github-logo.png"></a>
+      </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-success" (click)="c('home')">Back to Sponsors</button>
+    </div>
+</ng-template>
+
+<section id="main" class="container">
+  <div class="row">
+    <a [routerLink]="['/sponsors']">< Back</a>
+    <div class="col-sm-12">
+      <h1 class="header">Sponsor Sign Up</h1>
+    </div>
+  </div>
+  <form #registrationForm="ngForm" (ngSubmit)="register(registration)">
+    <div class="box">
+      <h3 class="box-header">Information</h3>
+        <div class="row">
+          <div class="col-sm-12 col-md-6 form-group">
+            <label>First Name:</label>
+            <input type="text" required class="form-control" placeholder="First Name" name="firstName" #firstName="ngModel" [(ngModel)]="registration.firstName"/>
+            <div *ngIf="(firstName.pristine && firstName.touched) || (!firstName.valid && firstName.touched)" class="alert alert-danger input-alert">
+                First name is required.
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 form-group">
+            <label>Last Name:</label>
+            <input type="text" required class="form-control" placeholder="Last Name" name="lastName" #lastName="ngModel" [(ngModel)]="registration.lastName"/>
+            <div *ngIf="(lastName.pristine && lastName.touched) || (!lastName.valid && lastName.touched)" class="alert alert-danger input-alert">
+                Last name is required.
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-8 form-group">
+            <label>Email:</label>
+            <input type="email" required class="form-control" placeholder="Email" name="email" #email="ngModel" [(ngModel)]="registration.email" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"/>
+            <div *ngIf="(email.pristine && email.touched) || (!email.valid && email.touched)" class="alert alert-danger input-alert">
+                Please enter a valid email.
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 form-group">
+            <label for="password">Password:</label>
+            <input type="password" required class="form-control" autocomplete="password" name="pass" #pass="ngModel" placeholder="Password" [(ngModel)]="registration.password">
+            <div *ngIf="(pass.pristine && pass.touched) || (!pass.valid && pass.touched)" class="alert alert-danger input-alert">
+                <div>
+                    Please enter a valid password.
+                </div>
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-6 form-group">
+            <label for="confirmPassword">Confirm Password:</label>
+            <input type="password" required class="form-control" autocomplete="comfirm-password" name="passConfirm" #passConfirm="ngModel" placeholder="Confirm Password" [(ngModel)]="registration.confirmPassword">
+            <div *ngIf="(registration.password !== registration.confirmPassword && passConfirm.touched)" class="alert alert-danger input-alert">
+                Passwords do not match.
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-8 form-group">
+              <label>Company:</label>
+              <input type="text" required class="form-control" placeholder="Company Name" name="companyName" #companyName="ngModel" [(ngModel)]="registration.companyName"/>
+              <div *ngIf="(companyName.pristine && companyName.touched) || (!companyName.valid && companyName.touched)" class="alert alert-danger input-alert">
+                  Phone number is required.
+              </div>
+            </div>
+          <div class="col-sm-12 col-md-8 form-group">
+            <label>Phone Number:</label>
+            <input type="text" required class="form-control" placeholder="Phone Number" name="phoneNumber" #phoneNumber="ngModel" [(ngModel)]="registration.phoneNumber"/>
+            <div *ngIf="(phoneNumber.pristine && phoneNumber.touched) || (!phoneNumber.valid && phoneNumber.touched)" class="alert alert-danger input-alert">
+                Phone number is required.
+            </div>
+          </div>
+          <div class="col-sm-12 col-md-8 form-group">
+            <label>T-Shirt Size: </label>
+            <select name="tshirt" #tshirt="ngModel" [(ngModel)]="registration.tshirt">
+              <option value="XS">Extra Small</option>
+              <option value="S">Small</option>
+              <option value="M">Medium</option>
+              <option value="L">Large</option>
+              <option value="XL">Extra Large</option>
+            </select>
+          </div>
+          <div class="col-sm-12">
+            <label>Dietary Restrictions:</label>
+          </div>
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="vegetarian" id="vegetarian" [(ngModel)]="registration.isVegetarian">
+                <label class="form-check-label" for="vegetarian">Vegetarian</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="vegan" id="vegan" [(ngModel)]="registration.isVegan">
+                <label class="form-check-label" for="vegan">Vegan</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="halal" id="halal" [(ngModel)]="registration.isHalal">
+                <label class="form-check-label" for="halal">Halal</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="kosher" id="isKosher" [(ngModel)]="registration.isKosher">
+                <label class="form-check-label" for="kosher">Kosher</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="gluten" id="gluten" [(ngModel)]="registration.isGlutenFree">
+                <label class="form-check-label" for="gluten">Gluten-free</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="nut" id="nut" [(ngModel)]="registration.isNutAllergy">
+                <label class="form-check-label" for="nut">Nut Allergy</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group">
+                <input type="checkbox" name="other" id="other" [(ngModel)]="registration.isOtherAllergy">
+                <label class="form-check-label" for="other">Other</label>
+              </div>
+              <div class="col-xs-12 col-sm-6 col-md-4 form-group" *ngIf="registration.isOtherAllergy">
+                <input class="form-control" placeholder="Other" type="text" name="otherDietValue" id="otherDietValue" [(ngModel)]="registration.otherDietaryRestriction">
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    
+    <div class="col-sm-12 submit-registration" >
+      <div class="row text-center justify-content-center">
+        <div class="col-sm-12 col-md-6">
+          <button [disabled]="!registrationForm.valid || isSubmitting" class="button special fit">Submit <i *ngIf="isSubmitting" class="fa fa-spinner fa-spin" style="font-size:24px"></i></button>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</section>

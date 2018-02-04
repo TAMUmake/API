@@ -1,0 +1,46 @@
+<ng-template #login let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Sponsor Login</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form #loginForm="ngForm">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" required class="form-control" placeholder="Email" name="email" #email="ngModel" [(ngModel)]="signin.email"/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" required class="form-control" autocomplete="password" name="password" #password="ngModel" placeholder="Password" [(ngModel)]="signin.password">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="loginSponsor()">Login</button>
+        </form>
+    </div>
+</ng-template>
+<ng-template #judge let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title">Event Judging</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <label style="font-size: 18px"><a target="_blank" href="https://docs.google.com/forms/d/1BatizWm0DBTMd3LDraDCPz3q_BlTOAfYHG8GD6vIPQw/viewform?edit_requested=true">Click here for event judging.</a></label>
+    </div>
+</ng-template>
+<section id="main" class="container">
+    <div class="row">
+        <a [routerLink]="['']">< Back</a>
+        <div class="col-sm-12">
+            <h1 class="header">Sponsor Information</h1>
+        </div>
+    </div>
+    <div class="details align-center" style="color: white;">
+        <a href="/assets/CorporateSponsorshipPacket.pdf" target="_blank" class="btn btn-info btn-lg" style="margin-bottom: 10px"><i class="icon fa-envelope" style="display: block; font-size: 65px;"></i>Sponsorship Packet</a>
+        <a href="/assets/SponsorshipCommitmentForm.pdf" target="_blank" class="btn btn-info btn-lg" style="margin-bottom: 10px"><i class="icon fa-check-square-o" style="display: block; font-size: 65px;"></i>Sponsor Commitment Form</a>
+        <a (click)="routeToRegistration()" class="btn btn-info btn-lg pointer" style="margin-bottom: 10px"><i class="icon fa-user" style="display: block; font-size: 65px;"></i>Sponsor Registration</a>
+        <a (click)="open(login)" class="btn btn-info btn-lg pointer" style="margin-bottom: 10px"><i class="icon fa-trophy" style="display: block; font-size: 65px;"></i>Event Judging</a>
+    </div>
+</section>
