@@ -7,25 +7,6 @@ const cors = require('cors')({
     origin: true
 });
 
-export const getAppliedStatus = functions.https.onRequest((req, res) => {
-    cors(req, res, function () {
-        const uid = req.query.uid;
-        if (UserSettings.getAppliedStatus) {
-            if (uid) {
-                return admin.database().ref('users/' + uid).child('applied').once('value', (snapshot) => {
-                    res.send(snapshot.val());
-                })
-            } else {
-                res.status(401).send(Settings.UNAUTHORIZED_MESSAGE);
-                return null;
-            }
-        } else {
-            res.status(403).send(Settings.DISABLED_MESSAGE);
-            return null;
-        }
-    })
-})
-
 export const createUser = functions.https.onRequest((req, res) => {
     cors(req, res, function () {
         if (UserSettings.createUserMetaData) {
