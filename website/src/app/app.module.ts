@@ -78,7 +78,7 @@ type StoreType = {
     HttpModule,
     NgbModule.forRoot(),
     RouterModule.forRoot(ROUTES, {
-      useHash: Boolean(history.pushState) === true,
+      useHash: Boolean(history.pushState) === false,
       preloadingStrategy: PreloadAllModules
     }),
     AngularFireModule.initializeApp(environment.firebase),
