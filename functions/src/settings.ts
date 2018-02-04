@@ -13,4 +13,5 @@ export class UserSettings {
     public static createUserMetaData = true;
     public static updateUserCount = true;
     public static getAppliedStatus = true;
+    public static registerUser = true;
 }
